@@ -123,9 +123,10 @@ GameObject:
   - component: {fileID: 26672602}
   - component: {fileID: 26672601}
   - component: {fileID: 26672603}
+  - component: {fileID: 26672604}
   m_Layer: 0
   m_Name: Player Parent
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
+  lookSpeed: 5
 --- !u!4 &26672602
 Transform:
   m_ObjectHideFlags: 0
@@ -153,7 +155,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1837642573}
-  - {fileID: 534669905}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -172,6 +173,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &26672604
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 26672600}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.5, z: 0}
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -377,7 +391,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -470,10 +484,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d336ec201aa8ed34f8ad5b77010c02fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrayOfAudioTracks: []
-  station1: {fileID: 0}
-  station2: {fileID: 0}
-  station3: {fileID: 0}
+  arrayOfAudioTracks:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  station1: {fileID: 8300000, guid: 760d37ac5ad7d504f9a1ebc67f208750, type: 3}
+  station2: {fileID: 8300000, guid: 1ea7261c875dd6c49908074e8e676bd1, type: 3}
+  station3: {fileID: 8300000, guid: c5f9738e662abe747a0bd4a0c36e000a, type: 3}
+  canActivateRadioText: {fileID: 2127953125}
 --- !u!65 &522545954
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -556,12 +574,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.40199995, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
-  m_Father: {fileID: 26672602}
-  m_RootOrder: 1
+  m_Father: {fileID: 853433578}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &722060974
 GameObject:
@@ -636,8 +654,9 @@ GameObject:
   - component: {fileID: 853433581}
   - component: {fileID: 853433580}
   - component: {fileID: 853433579}
+  - component: {fileID: 853433582}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Player Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -652,7 +671,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1.398, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 534669905}
   m_Father: {fileID: 1837642573}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -710,6 +730,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 853433577}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &853433582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 853433577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab3b88263a0696642b97d6e6aaff3da0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1157423408
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,7 +925,7 @@ GameObject:
   - component: {fileID: 1837642575}
   - component: {fileID: 1837642574}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Player Torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1081,7 +1112,7 @@ GameObject:
   - component: {fileID: 2127953126}
   - component: {fileID: 2127953125}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Can Activate Radio Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1100,11 +1131,11 @@ RectTransform:
   m_Father: {fileID: 349976781}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 30}
   m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2127953125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1117,7 +1148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1125,7 +1156,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: f7e5fc75cfdc8fc4bb18111bbbeb35af, type: 3}
+    m_Font: {fileID: 12800000, guid: 665279347b7e17b41a553a589aeda3d4, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
