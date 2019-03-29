@@ -20,7 +20,7 @@ public class TestPlayerMover : MonoBehaviour
     //Camera fpsCam;
 
     float xAxisClamp;
-    
+
 
     // Use this for initialization
     void Start()
@@ -50,7 +50,7 @@ public class TestPlayerMover : MonoBehaviour
         float moveVertical = Input.GetAxis("Vertical");
 
         Vector3 movementInput = new Vector3(moveHorizontal, 0.0F, moveVertical);
-        //rb.velocity = movementInput * movementSpeed; // Moves independently of rotation of object
+        rb.velocity = movementInput * movementSpeed; // Moves independently of rotation of object
         //rb.AddRelativeForce((movementInput)*movementSpeed); // Moves dependent of rotation of object
 
         Vector3 forwardBackwardMovement = transform.forward * moveVertical * movementSpeed;
@@ -70,8 +70,6 @@ public class TestPlayerMover : MonoBehaviour
         //playerHeadObject.transform.Rotate(transform.up * lookHorizontal); // Rotates  Head left right
         //playerHeadObject.transform.rotation.y = transform.Rotate(transform.up * lookHorizontal);
         //transform.Rotate(transform.up * lookVertical);
-
-
 
         // Below Code keeps Player head tilt locked between 90 degree verticle and 
         xAxisClamp += lookVertical;
