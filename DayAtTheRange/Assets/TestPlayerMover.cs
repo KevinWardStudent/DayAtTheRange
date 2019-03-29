@@ -50,16 +50,20 @@ public class TestPlayerMover : MonoBehaviour
         float moveVertical = Input.GetAxis("Vertical");
 
         Vector3 movementInput = new Vector3(moveHorizontal, 0.0F, moveVertical);
-        rb.velocity = movementInput * movementSpeed;
+        //rb.velocity = movementInput * movementSpeed; // Moves independently of rotation of object
+        //rb.AddRelativeForce((movementInput)*movementSpeed); // Moves dependent of rotation of object
 
+        Vector3 forwardBackwardMovement = transform.forward * moveVertical * movementSpeed;
+        Vector3 leftRightMovement = transform.right * moveHorizontal * movementSpeed;
         // Player Look
 
         float lookHorizontal = Input.GetAxis("Mouse X");
         float lookVertical = Input.GetAxis("Mouse Y");
+        //characterController.SimpleMove(forwardBackwardMovement + leftRightMovement);
 
-        //Vector3 lookInput = new Vector3(-lookVertical, lookHorizontal, 0.0F);
+        Vector3 lookInput = new Vector3(-lookVertical, lookHorizontal, 0.0F);
         //transform.Rotate(-transform.right * lookVertical); // Rotates Torso up down
-        transform.Rotate(Vector3.up * lookHorizontal); // rotates Torso left right, but now apparently rotates head?
+        transform.Rotate(Vector3.up * lookHorizontal); // rotates Torso left right
         //transform.Rotate(transform.forward * lookHorizontal); //  rotates Torso in lean left right
 
         playerHeadObject.transform.Rotate(Vector3.left * lookVertical); // Rotates Head up down
@@ -68,6 +72,8 @@ public class TestPlayerMover : MonoBehaviour
         //transform.Rotate(transform.up * lookVertical);
 
 
+
+        // Below Code keeps Player head tilt locked between 90 degree verticle and 
         xAxisClamp += lookVertical;
 
         if (xAxisClamp > 90.0F)
@@ -83,6 +89,13 @@ public class TestPlayerMover : MonoBehaviour
             lookVertical = 0.0F;
             ClampXAxisRotationToValue(90.0F);
         }
+
+        /*
+       Vector3 targetDirection = new Vector3(moveHorizontal, 0.0f, moveVertical);
+        Camera.main.transform.TransformDirection(targetDirection);
+       targetDirection.y = 0.0f;
+       rb.velocity = targetDirection * movementSpeed;
+       */
     }
     private void ClampXAxisRotationToValue(float value)
     {
