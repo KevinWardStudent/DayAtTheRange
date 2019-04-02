@@ -21,7 +21,6 @@ public class TestPlayerMover : MonoBehaviour
 
     float xAxisClamp;
 
-
     // Use this for initialization
     void Start()
     {
@@ -36,35 +35,62 @@ public class TestPlayerMover : MonoBehaviour
         }
         */
         playerHeadObject = GameObject.Find("Player Head");
-
         //fpsCam = GetComponent<Camera>();
 
         xAxisClamp = 0.0F;
+
+        rb.isKinematic = false;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // Player Movement
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        float moveHorizontal = Input.GetAxis("Horizontal"); // AD
+        float moveVertical = Input.GetAxis("Vertical"); // WS
 
         Vector3 movementInput = new Vector3(moveHorizontal, 0.0F, moveVertical);
-        rb.velocity = movementInput * movementSpeed; // Moves independently of rotation of object
-        //rb.AddRelativeForce((movementInput)*movementSpeed); // Moves dependent of rotation of object
+        //rb.velocity = movementInput * movementSpeed; // Moves independently of rotation of object
+        rb.AddRelativeForce((movementInput)*movementSpeed); // Moves dependent of rotation of object
+        //rb.MovePosition(rb.position + movementInput);
 
         Vector3 forwardBackwardMovement = transform.forward * moveVertical * movementSpeed;
         Vector3 leftRightMovement = transform.right * moveHorizontal * movementSpeed;
+
+
+        if ((Input.GetAxis("Horizontal") > 0.5 && Input.GetAxis("Vertical") > 0.5) || (Input.GetAxis("Horizontal") > -0.5 && Input.GetAxis("Vertical") > -0.5))
+        //if ((Input.GetAxis("Horizontal") > 0.5 && Input.GetAxis("Vertical") > 0.5) || (Input.GetAxis("Horizontal") < -0.5 && Input.GetAxis("Vertical") < -0.5))
+        {
+            rb.isKinematic = false;
+        }
+        else if ((Input.GetAxis("Horizontal") < 0.5 && Input.GetAxis("Vertical") < 0.5) || (Input.GetAxis("Horizontal") < -0.5 && Input.GetAxis("Vertical") < -0.5))
+        {
+            rb.isKinematic = false;
+        }
+        else if ()
+        {
+
+        }
+        else if ()
+        {
+
+        }
+
+        else
+        {
+            rb.isKinematic = true;
+        }
+
         // Player Look
 
         float lookHorizontal = Input.GetAxis("Mouse X");
-        float lookVertical = Input.GetAxis("Mouse Y");
-        //characterController.SimpleMove(forwardBackwardMovement + leftRightMovement);
+        float lookVertical = Input.GetAxis("Mouse Y"); // 
+        float lookLean = Input.GetAxis("Lean");
 
         Vector3 lookInput = new Vector3(-lookVertical, lookHorizontal, 0.0F);
         //transform.Rotate(-transform.right * lookVertical); // Rotates Torso up down
         transform.Rotate(Vector3.up * lookHorizontal); // rotates Torso left right
-        //transform.Rotate(transform.forward * lookHorizontal); //  rotates Torso in lean left right
+        //transform.Rotate(new Vector3 (0.0F, 0.0F, 0.0F) * lookLean); //  rotates Torso in lean left right -- Please Fix Position
 
         playerHeadObject.transform.Rotate(Vector3.left * lookVertical); // Rotates Head up down
         //playerHeadObject.transform.Rotate(transform.up * lookHorizontal); // Rotates  Head left right
