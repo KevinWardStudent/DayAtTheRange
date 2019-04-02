@@ -19,7 +19,8 @@ public class TestPlayerMover : MonoBehaviour
 
     //Camera fpsCam;
 
-    float xAxisClamp;
+    float xAxisClamp; // Float value to determine the mximum distance the player can look up or down while rotating on the x axis
+    float zAxisClamp; // Float value to determine the maximum distance the player "leans" aka rotate on the z axis
 
     // Use this for initialization
     void Start()
@@ -38,6 +39,7 @@ public class TestPlayerMover : MonoBehaviour
         //fpsCam = GetComponent<Camera>();
 
         xAxisClamp = 0.0F;
+        zAxisClamp = 0.0F;
 
         rb.isKinematic = false;
     }
@@ -51,13 +53,17 @@ public class TestPlayerMover : MonoBehaviour
 
         Vector3 movementInput = new Vector3(moveHorizontal, 0.0F, moveVertical);
         //rb.velocity = movementInput * movementSpeed; // Moves independently of rotation of object
-        rb.AddRelativeForce((movementInput)*movementSpeed); // Moves dependent of rotation of object
-        //rb.MovePosition(rb.position + movementInput);
+        rb.AddRelativeForce((movementInput) * movementSpeed); // Moves dependent of rotation of object---This works
+        //rb.MovePosition(rb.position + movementInput); // Really quickly moves player in direction of inputs, basically like velocity 
+        //rb.MovePosition(movementInput); // Moves player in direction of input, when input released, resets back to starting point
 
-        Vector3 forwardBackwardMovement = transform.forward * moveVertical * movementSpeed;
-        Vector3 leftRightMovement = transform.right * moveHorizontal * movementSpeed;
+        //transform.Translate(Vector3.forward * moveHorizontal); // Quickly moves player along x axis, reset to 0, because of Vector3
+        //transform.Translate(Vector3.right * moveVertical); // Quickly moves player along z axis, reset to 0, because of Vector3
+        //transform.Translate(movementInput);
+        //Vector3 forwardBackwardMovement = transform.forward * moveVertical * movementSpeed;
+        //Vector3 leftRightMovement = transform.right * moveHorizontal * movementSpeed;
 
-
+        /*
         if ((Input.GetAxis("Horizontal") > 0.5 && Input.GetAxis("Vertical") > 0.5) || (Input.GetAxis("Horizontal") > -0.5 && Input.GetAxis("Vertical") > -0.5))
         //if ((Input.GetAxis("Horizontal") > 0.5 && Input.GetAxis("Vertical") > 0.5) || (Input.GetAxis("Horizontal") < -0.5 && Input.GetAxis("Vertical") < -0.5))
         {
@@ -67,30 +73,38 @@ public class TestPlayerMover : MonoBehaviour
         {
             rb.isKinematic = false;
         }
-        else if ()
-        {
-
-        }
-        else if ()
-        {
-
-        }
-
         else
         {
             rb.isKinematic = true;
         }
+        */
 
         // Player Look
 
         float lookHorizontal = Input.GetAxis("Mouse X");
-        float lookVertical = Input.GetAxis("Mouse Y"); // 
+        float lookVertical = Input.GetAxis("Mouse Y");
         float lookLean = Input.GetAxis("Lean");
 
         Vector3 lookInput = new Vector3(-lookVertical, lookHorizontal, 0.0F);
+        Vector3 leanRotationInput = new Vector3(0.0F, 0.0F, -lookLean);
+        Vector3 leanPositionInput = new Vector3(lookLean, 0.0F, 0.0F);
         //transform.Rotate(-transform.right * lookVertical); // Rotates Torso up down
-        transform.Rotate(Vector3.up * lookHorizontal); // rotates Torso left right
-        //transform.Rotate(new Vector3 (0.0F, 0.0F, 0.0F) * lookLean); //  rotates Torso in lean left right -- Please Fix Position
+        transform.Rotate(Vector3.up * lookHorizontal); // rotates Torso left right--Used for Looking Left Right
+        transform.Rotate(Vector3.forward * -lookLean); //  rotates Torso in lean left right, on z axis -- lookLean must be negative
+        //Quaternion leanRotation = Quaternion.Euler(leanInput);
+        //rb.MoveRotation(leanRotation);// Lean(rotate) torso and then reset to original position
+        //rb.MovePosition(leanPosInput); // Lean(move) the torso and then reset to original position 
+        //transform.Translate(leanPosInput);
+
+        if ((Input.GetAxis("Lean") > 0) && !(Input.GetAxis("Lean") < 0))
+        {
+            //transform.Rotate(Vector3.forward *Time.deltaTime);
+        }
+
+        if (Input.GetAxis("Lean") < 0 && !(Input.GetAxis("Lean") > 0))
+        {
+            //transform.Rotate(Vector3.forward * Time.deltaTime);
+        }
 
         playerHeadObject.transform.Rotate(Vector3.left * lookVertical); // Rotates Head up down
         //playerHeadObject.transform.Rotate(transform.up * lookHorizontal); // Rotates  Head left right
@@ -99,7 +113,8 @@ public class TestPlayerMover : MonoBehaviour
 
         // Below Code keeps Player head tilt locked between 90 degree verticle and 
         xAxisClamp += lookVertical;
-
+        zAxisClamp += lookLean; // This will move body, even if no rotate functions are called
+    
         if (xAxisClamp > 90.0F)
         {
             xAxisClamp = 90.0F;
@@ -113,13 +128,18 @@ public class TestPlayerMover : MonoBehaviour
             lookVertical = 0.0F;
             ClampXAxisRotationToValue(90.0F);
         }
-
-        /*
-       Vector3 targetDirection = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        Camera.main.transform.TransformDirection(targetDirection);
-       targetDirection.y = 0.0f;
-       rb.velocity = targetDirection * movementSpeed;
-       */
+        if (zAxisClamp > 15.0F)
+        {
+            zAxisClamp = 15.0F;
+            lookLean = 0.0F;
+            ClampZAxisRotationToValue(-15.0F);
+        }
+        else if (zAxisClamp < -15.0F)
+        {
+            zAxisClamp = -15.0F;
+            lookLean = 0.0F;
+            ClampZAxisRotationToValue(15.0F);
+        }
     }
     private void ClampXAxisRotationToValue(float value)
     {
@@ -127,6 +147,18 @@ public class TestPlayerMover : MonoBehaviour
         eulerRotation.x = value;
         playerHeadObject.transform.eulerAngles = eulerRotation;
     }
+    private void ClampZAxisRotationToValue(float value)
+    {
+        Vector3 eulerRotation = transform.eulerAngles;
+        eulerRotation.z = value;
+        transform.eulerAngles = eulerRotation;
+    }
+    /*
+  Vector3 targetDirection = new Vector3(moveHorizontal, 0.0f, moveVertical);
+   Camera.main.transform.TransformDirection(targetDirection);
+  targetDirection.y = 0.0f;
+  rb.velocity = targetDirection * movementSpeed;
+  */
     /*
     void Shoot()
     {
