@@ -29,7 +29,7 @@ public class RadioController : MonoBehaviour {
         arrayOfAudioTracks[1] = station2; // Set index value of Radio's track list position 1 to second track
         arrayOfAudioTracks[2] = station3; // Set index value of Radio's track list position 2 to third track
 
-        canActivate = false; // Player not in range of collider to active, so false
+        canActivate = false; // Player not in range of collider to active, so false (0, because GetAxis is a float and cannot be evaluated alongside bool)
         canActivateRadioText.text = ""; // Player not in range of collider, so nothing to display
 
     }
@@ -73,7 +73,7 @@ public class RadioController : MonoBehaviour {
         }
 
         // Below If Statement checks to see if fire button is presed
-        if (Input.GetKeyDown(KeyCode.F) && canActivate == true)
+        if (Input.GetButtonDown("Interact") && canActivate == true)
         {
             // Console Alert: Switch Station Button Pressed
             Debug.Log("Switch Station Change Button Pressed");
@@ -88,7 +88,7 @@ public class RadioController : MonoBehaviour {
         if (other.tag == "Player")
         {
             canActivate = true; // Player can activate object, now in range of collider
-            canActivateRadioText.text = "Press F to Activate Radio"; // Alert Player to the fact they can activate the Radio
+            canActivateRadioText.text = "Press F (X) to Activate Radio"; // Alert Player to the fact they can activate the Radio
         }
     }
     private void OnTriggerExit(Collider other)

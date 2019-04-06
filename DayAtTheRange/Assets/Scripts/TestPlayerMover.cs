@@ -20,6 +20,7 @@ public class TestPlayerMover : MonoBehaviour
     //Camera fpsCam;
 
     float xAxisClamp; // Float value to determine the mximum distance the player can look up or down while rotating on the x axis
+    float xAxisClampXbox; // Xbox version of above code
     float zAxisClamp; // Float value to determine the maximum distance the player "leans" aka rotate on the z axis
 
     // Use this for initialization
@@ -39,6 +40,7 @@ public class TestPlayerMover : MonoBehaviour
         //fpsCam = GetComponent<Camera>();
 
         xAxisClamp = 0.0F;
+        xAxisClampXbox = 0.0F;
         zAxisClamp = 0.0F;
 
         rb.isKinematic = false;
@@ -50,10 +52,14 @@ public class TestPlayerMover : MonoBehaviour
         // Player Movement
         float moveHorizontal = Input.GetAxis("Horizontal"); // AD
         float moveVertical = Input.GetAxis("Vertical"); // WS
+        float moveHorizontalXbox = Input.GetAxis("LeftStickH"); // LS H
+        float moveVerticalXbox = Input.GetAxis("LeftStickV"); // LS V
 
         Vector3 movementInput = new Vector3(moveHorizontal, 0.0F, moveVertical);
+        Vector3 movementInputXbox = new Vector3(moveHorizontalXbox, 0.0F, moveVerticalXbox);
         //rb.velocity = movementInput * movementSpeed; // Moves independently of rotation of object
         rb.AddRelativeForce((movementInput) * movementSpeed); // Moves dependent of rotation of object---This works
+        rb.AddRelativeForce((movementInputXbox) * movementSpeed); // Xbox Version of above Code
         //rb.MovePosition(rb.position + movementInput); // Really quickly moves player in direction of inputs, basically like velocity 
         //rb.MovePosition(movementInput); // Moves player in direction of input, when input released, resets back to starting point
 
@@ -81,15 +87,19 @@ public class TestPlayerMover : MonoBehaviour
 
         // Player Look
 
-        float lookHorizontal = Input.GetAxis("Mouse X");
-        float lookVertical = Input.GetAxis("Mouse Y");
-        float lookLean = Input.GetAxis("Lean");
+        float lookHorizontal = Input.GetAxis("Mouse X"); // Mouse Left Right
+        float lookVertical = Input.GetAxis("Mouse Y"); // Mouse Up Down
+        float lookLean = Input.GetAxis("Lean"); // QE or RB LB
+        float lookHorizontalXbox = Input.GetAxis("RightStickH"); // RS H
+        float lookVerticalXbox = Input.GetAxis("RightStickV"); // RS V
 
         Vector3 lookInput = new Vector3(-lookVertical, lookHorizontal, 0.0F);
+        Vector3 lookInputXbox = new Vector3(-lookVerticalXbox, lookHorizontalXbox, 0.0F);
         Vector3 leanRotationInput = new Vector3(0.0F, 0.0F, -lookLean);
         Vector3 leanPositionInput = new Vector3(lookLean, 0.0F, 0.0F);
         //transform.Rotate(-transform.right * lookVertical); // Rotates Torso up down
         transform.Rotate(Vector3.up * lookHorizontal); // rotates Torso left right--Used for Looking Left Right
+        transform.Rotate(Vector3.up * lookHorizontalXbox); // Xbox Version of Above Code
         transform.Rotate(Vector3.forward * -lookLean); //  rotates Torso in lean left right, on z axis -- lookLean must be negative
         //Quaternion leanRotation = Quaternion.Euler(leanInput);
         //rb.MoveRotation(leanRotation);// Lean(rotate) torso and then reset to original position
@@ -107,6 +117,7 @@ public class TestPlayerMover : MonoBehaviour
         }
 
         playerHeadObject.transform.Rotate(Vector3.left * lookVertical); // Rotates Head up down
+        playerHeadObject.transform.Rotate(Vector3.left * lookVerticalXbox); // Xbox Version of Above Code
         //playerHeadObject.transform.Rotate(transform.up * lookHorizontal); // Rotates  Head left right
         //playerHeadObject.transform.rotation.y = transform.Rotate(transform.up * lookHorizontal);
         //transform.Rotate(transform.up * lookVertical);
@@ -126,6 +137,19 @@ public class TestPlayerMover : MonoBehaviour
         {
             xAxisClamp = -90.0F;
             lookVertical = 0.0F;
+            ClampXAxisRotationToValue(90.0F);
+        }
+        if (xAxisClampXbox > 90.0F)
+        {
+            xAxisClampXbox = 90.0F;
+            lookVerticalXbox = 0.0F;
+            ClampXAxisRotationToValue(270.0F);
+
+        }
+        else if (xAxisClampXbox < -90.0F)
+        {
+            xAxisClampXbox = -90.0F;
+            lookVerticalXbox = 0.0F;
             ClampXAxisRotationToValue(90.0F);
         }
         if (zAxisClamp > 15.0F)
