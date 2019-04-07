@@ -10,6 +10,7 @@ public class TestPlayerMover : MonoBehaviour
      */
 
     // Declare Variables
+    //private Animator anim; // Reference to Animator component
     private Rigidbody rb; // References to Rigidbody Component
     public float movementSpeed; // Assigned in Unity Editor, Speed at which player moves
     public float lookSpeed; // Assigned in Unity Editor, Speed at which player moves
@@ -26,6 +27,7 @@ public class TestPlayerMover : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //anim = GetComponent<Animator>(); // Grabs reference to Player's Animator component
         rb = GetComponent<Rigidbody>(); // Grabs reference to Player's Rigidbody component
         Cursor.lockState = CursorLockMode.Locked; // Locks mouse to center of screen
 
@@ -47,6 +49,19 @@ public class TestPlayerMover : MonoBehaviour
     }
 
     // Update is called once per frame
+    void Update()
+    {
+        /*
+        if (Input.GetAxis("Fire2") > 0)
+        {
+            anim.SetBool("AimDownSight", true);
+        }
+        else
+        {
+            anim.SetBool("AimDownSight", false);
+        }
+        */
+    }
     void FixedUpdate()
     {
         // Player Movement
