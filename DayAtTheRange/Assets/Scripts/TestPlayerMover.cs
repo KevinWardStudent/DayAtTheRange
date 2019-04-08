@@ -10,7 +10,7 @@ public class TestPlayerMover : MonoBehaviour
      */
 
     // Declare Variables
-    //private Animator anim; // Reference to Animator component
+    private Animator anim; // Reference to Animator component
     private Rigidbody rb; // References to Rigidbody Component
     public float movementSpeed; // Assigned in Unity Editor, Speed at which player moves
     public float lookSpeed; // Assigned in Unity Editor, Speed at which player moves
@@ -27,7 +27,7 @@ public class TestPlayerMover : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //anim = GetComponent<Animator>(); // Grabs reference to Player's Animator component
+        anim = GetComponent<Animator>(); // Grabs reference to Player's Animator component
         rb = GetComponent<Rigidbody>(); // Grabs reference to Player's Rigidbody component
         Cursor.lockState = CursorLockMode.Locked; // Locks mouse to center of screen
 
@@ -52,15 +52,27 @@ public class TestPlayerMover : MonoBehaviour
     void Update()
     {
         /*
-        if (Input.GetAxis("Fire2") > 0)
+        
+        if (Input.GetAxis("Lean") > 0 && !(Input.GetAxis("Lean") < 0))
         {
-            anim.SetBool("AimDownSight", true);
+            Debug.Log("Do the lean! 'Right'");
+            anim.SetBool("LeanRight", true);
         }
         else
         {
-            anim.SetBool("AimDownSight", false);
+            anim.SetBool("LeanRight", false);
+        }
+        if (Input.GetAxis("Lean") < 0 && !(Input.GetAxis("Lean") > 0))
+        {
+            Debug.Log("Do the lean! 'Left'");
+            anim.SetBool("LeanLeft", true);
+        }
+        else
+        {
+            anim.SetBool("LeanLeft", false);
         }
         */
+        
     }
     void FixedUpdate()
     {
@@ -80,7 +92,7 @@ public class TestPlayerMover : MonoBehaviour
 
         //transform.Translate(Vector3.forward * moveHorizontal); // Quickly moves player along x axis, reset to 0, because of Vector3
         //transform.Translate(Vector3.right * moveVertical); // Quickly moves player along z axis, reset to 0, because of Vector3
-        //transform.Translate(movementInput);
+        //transform.Translate(movementInput); // Quickly moves player in x and z axis directions
         //Vector3 forwardBackwardMovement = transform.forward * moveVertical * movementSpeed;
         //Vector3 leftRightMovement = transform.right * moveHorizontal * movementSpeed;
 
@@ -115,7 +127,7 @@ public class TestPlayerMover : MonoBehaviour
         //transform.Rotate(-transform.right * lookVertical); // Rotates Torso up down
         transform.Rotate(Vector3.up * lookHorizontal); // rotates Torso left right--Used for Looking Left Right
         transform.Rotate(Vector3.up * lookHorizontalXbox); // Xbox Version of Above Code
-        transform.Rotate(Vector3.forward * -lookLean); //  rotates Torso in lean left right, on z axis -- lookLean must be negative
+        //transform.Rotate(Vector3.forward * -lookLean); //  rotates Torso in lean left right, on z axis -- lookLean must be negative
         //Quaternion leanRotation = Quaternion.Euler(leanInput);
         //rb.MoveRotation(leanRotation);// Lean(rotate) torso and then reset to original position
         //rb.MovePosition(leanPosInput); // Lean(move) the torso and then reset to original position 
@@ -139,7 +151,7 @@ public class TestPlayerMover : MonoBehaviour
 
         // Below Code keeps Player head tilt locked between 90 degree verticle and 
         xAxisClamp += lookVertical;
-        zAxisClamp += lookLean; // This will move body, even if no rotate functions are called
+        //zAxisClamp += lookLean; // This will move body, even if no rotate functions are called-----Check if this is enabled if still leaning without animation, check off if you want old lean
     
         if (xAxisClamp > 90.0F)
         {
