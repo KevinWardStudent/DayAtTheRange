@@ -25,4 +25,12 @@ public class BulletMover : MonoBehaviour {
     {
         rb.velocity = -transform.right * speed;
 	}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag != "Bullet")
+        {
+            Destroy(gameObject);
+        }
+    }
 }
