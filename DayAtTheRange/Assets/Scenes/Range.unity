@@ -15262,13 +15262,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 886715465}
+  - component: {fileID: 886715466}
+  - component: {fileID: 886715467}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &886715465
 Transform:
   m_ObjectHideFlags: 0
@@ -15284,6 +15286,35 @@ Transform:
   m_Father: {fileID: 853433578}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &886715466
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 886715464}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 735ae1be848501246b976963ab8d06ce, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &886715467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 886715464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e7f4e57da9cf7748964329e150e69a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &889158617
 GameObject:
   m_ObjectHideFlags: 0
@@ -17814,7 +17845,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1042133465
 Transform:
   m_ObjectHideFlags: 0
@@ -27767,6 +27798,14 @@ Prefab:
     - target: {fileID: 400002, guid: 1257bbf4fb428b1449d197b8b4aa31c9, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6400000, guid: 1257bbf4fb428b1449d197b8b4aa31c9, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6400000, guid: 1257bbf4fb428b1449d197b8b4aa31c9, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1257bbf4fb428b1449d197b8b4aa31c9, type: 3}
