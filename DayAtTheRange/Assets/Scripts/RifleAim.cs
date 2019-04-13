@@ -21,5 +21,18 @@ public class RifleAim : MonoBehaviour {
         {
             anim.SetBool("AimDownSight", false);
         }
+        /*
+        // Xbox Version
+
+        if (Input.GetAxis("XboxADS") > 0)
+        {
+            anim.SetBool("AimDownSight", true);
+        }
+        else
+        {
+            anim.SetBool("AimDownSight", false);
+        }
+        */
+
     }
 }

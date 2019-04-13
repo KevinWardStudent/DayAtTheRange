@@ -6,7 +6,11 @@ public class TestPlayerMover : MonoBehaviour
 {
 
     /*
-     * This script's purpose is to simply move the Player Game Object on the X, Z plane 
+     * This script's purpose is to simply move the Player Game Object on the X, Z plane, it was also intended to move the player in rotation
+     * on the Z axis. This however was changed to be handled by other scripts which play animations to accomplish the same task. Nonetheless,
+     * the code is left in for testing purposes and to show that certain functions are achieved in this way. Meaning that its useless for reference
+     * when trying to write other scripts. This also used in other cases
+     * 
      */
 
     // Declare Variables
@@ -15,8 +19,8 @@ public class TestPlayerMover : MonoBehaviour
     public float movementSpeed; // Assigned in Unity Editor, Speed at which player moves
     public float lookSpeed; // Assigned in Unity Editor, Speed at which player moves
 
-    private HeadReference playerHead; // Grabs reference to transform head of Player
-    private GameObject playerHeadObject;
+    //private HeadReference playerHead; // Grabs reference to transform head of Player--This is commented out in case needed to be called on later, but 
+    private GameObject playerHeadObject; // Reference object which holds the transform of the head of the Player and which then is stored in playerHead
 
     //Camera fpsCam;
 
@@ -38,8 +42,8 @@ public class TestPlayerMover : MonoBehaviour
             playerHead = playerHeadObject.GetComponent<HeadReference>();
         }
         */
-        playerHeadObject = GameObject.Find("Player Head");
-        //fpsCam = GetComponent<Camera>();
+        playerHeadObject = GameObject.Find("Player Head"); // A more efficent way of storing a reference to the Player's head than the above method
+        //fpsCam = playerHeadObject.GetComponent<Camera>();
 
         xAxisClamp = 0.0F;
         xAxisClampXbox = 0.0F;
@@ -77,10 +81,10 @@ public class TestPlayerMover : MonoBehaviour
     void FixedUpdate()
     {
         // Player Movement
-        float moveHorizontal = Input.GetAxis("Horizontal"); // AD
-        float moveVertical = Input.GetAxis("Vertical"); // WS
-        float moveHorizontalXbox = Input.GetAxis("LeftStickH"); // LS H
-        float moveVerticalXbox = Input.GetAxis("LeftStickV"); // LS V
+        float moveHorizontal = Input.GetAxis("Horizontal"); // Keyboard: AD Respectively
+        float moveVertical = Input.GetAxis("Vertical"); // Keyboard: WS Respectively
+        float moveHorizontalXbox = Input.GetAxis("LeftStickH"); // Xbox Controller: Left Stick Horizontal
+        float moveVerticalXbox = Input.GetAxis("LeftStickV"); // Xbox Controller: Left Stick Vertical
 
         Vector3 movementInput = new Vector3(moveHorizontal, 0.0F, moveVertical);
         Vector3 movementInputXbox = new Vector3(moveHorizontalXbox, 0.0F, moveVerticalXbox);
@@ -96,6 +100,8 @@ public class TestPlayerMover : MonoBehaviour
         //Vector3 forwardBackwardMovement = transform.forward * moveVertical * movementSpeed;
         //Vector3 leftRightMovement = transform.right * moveHorizontal * movementSpeed;
 
+
+        // Below code in block comment is meant to utilize kinematic to better imitable movement in real life
         /*
         if ((Input.GetAxis("Horizontal") > 0.5 && Input.GetAxis("Vertical") > 0.5) || (Input.GetAxis("Horizontal") > -0.5 && Input.GetAxis("Vertical") > -0.5))
         //if ((Input.GetAxis("Horizontal") > 0.5 && Input.GetAxis("Vertical") > 0.5) || (Input.GetAxis("Horizontal") < -0.5 && Input.GetAxis("Vertical") < -0.5))
@@ -133,6 +139,7 @@ public class TestPlayerMover : MonoBehaviour
         //rb.MovePosition(leanPosInput); // Lean(move) the torso and then reset to original position 
         //transform.Translate(leanPosInput);
 
+        // Below if statements are meant to rotate player, currently handled by animation so though evaluating to true its commented out code will not function
         if ((Input.GetAxis("Lean") > 0) && !(Input.GetAxis("Lean") < 0))
         {
             //transform.Rotate(Vector3.forward *Time.deltaTime);
@@ -149,7 +156,7 @@ public class TestPlayerMover : MonoBehaviour
         //playerHeadObject.transform.rotation.y = transform.Rotate(transform.up * lookHorizontal);
         //transform.Rotate(transform.up * lookVertical);
 
-        // Below Code keeps Player head tilt locked between 90 degree verticle and 
+        // Below Code keeps Player head tilt locked between 90 degree verticle
         xAxisClamp += lookVertical;
         //zAxisClamp += lookLean; // This will move body, even if no rotate functions are called-----Check if this is enabled if still leaning without animation, check off if you want old lean
     
