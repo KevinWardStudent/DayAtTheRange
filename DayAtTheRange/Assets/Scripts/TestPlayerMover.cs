@@ -9,7 +9,8 @@ public class TestPlayerMover : MonoBehaviour
      * This script's purpose is to simply move the Player Game Object on the X, Z plane, it was also intended to move the player in rotation
      * on the Z axis. This however was changed to be handled by other scripts which play animations to accomplish the same task. Nonetheless,
      * the code is left in for testing purposes and to show that certain functions are achieved in this way. Meaning that its useless for reference
-     * when trying to write other scripts. This also used in other cases
+     * when trying to write other scripts. This also used in other cases.
+     * This script also handles switching references to the player's weapons
      * 
      */
 
@@ -27,6 +28,15 @@ public class TestPlayerMover : MonoBehaviour
     float xAxisClamp; // Float value to determine the mximum distance the player can look up or down while rotating on the x axis
     float xAxisClampXbox; // Xbox version of above code
     float zAxisClamp; // Float value to determine the maximum distance the player "leans" aka rotate on the z axis
+
+
+    // Variables for Weapon Switching
+    private int indexSwitchWeapon; // Int used to set different states to check what weapon is selected
+    private bool consoleTextDisplayed; // Control Flag to prevent overload in console of text
+    public GameObject rifle; // Assigned in Unity Editor, grab reference to Rifle
+    public GameObject pistol; // Assigned in Unity Editor, grab reference to Pistol
+    public GameObject grenade; // Assigned in Unity Editor, grab reference to Grenade
+
 
     // Use this for initialization
     void Start()
@@ -50,6 +60,8 @@ public class TestPlayerMover : MonoBehaviour
         zAxisClamp = 0.0F;
 
         rb.isKinematic = false;
+        indexSwitchWeapon = 1; // Rifle is first weapon selected, this will only be included in earlier build, later index value will be needed for
+        consoleTextDisplayed = false;
     }
 
     // Update is called once per frame
@@ -198,6 +210,57 @@ public class TestPlayerMover : MonoBehaviour
             lookLean = 0.0F;
             ClampZAxisRotationToValue(15.0F);
         }
+        //*
+
+        // Weapon Switch
+        if (indexSwitchWeapon == 1 && consoleTextDisplayed == false)
+        {
+            // Console Alert: Rifle Selected
+            Debug.Log("Rifle Selected");
+            // Set Pistol and Grenade to False, Rifle to True
+            rifle.SetActive(true);
+            pistol.SetActive(false);
+            grenade.SetActive(false);
+            consoleTextDisplayed = true; // Weapon selected has been changed so, Console has displayed text
+        }
+
+        if (indexSwitchWeapon == 2 && consoleTextDisplayed == false)
+        {
+            // Console Alert: Pistol Selected
+            Debug.Log("Pistol Selected");
+            // Set Rifle & Grenade to False, Pistol to True
+            rifle.SetActive(false);
+            pistol.SetActive(true);
+            grenade.SetActive(false);
+            consoleTextDisplayed = true; // Weapon selected has been changed so, Console has displayed text
+        }
+        if (indexSwitchWeapon == 3 && consoleTextDisplayed == false)
+        {
+            // Console Alert: Grenade Selected
+            Debug.Log("Grenade Selected");
+            // Set Rifle & Pistol to False, Grenade to True
+            rifle.SetActive(false);
+            pistol.SetActive(false);
+            grenade.SetActive(true);
+            consoleTextDisplayed = true; // Weapon selected has been changed so, Console has displayed text
+        }
+        if (indexSwitchWeapon > 3 && consoleTextDisplayed == false)
+        {
+            // Console Alert: Grenade Selected
+            Debug.Log("Weapon Selected Reset");
+            indexSwitchWeapon = 1;
+            consoleTextDisplayed = true; // Weapon selected has been changed so, Console has displayed text
+        }
+        if (Input.GetButtonDown("SwitchWeapon"))
+        {
+            // Console Alert: Weapon Switch Button Pressed
+            Debug.Log("Weapon Switch Button Pressed");
+            indexSwitchWeapon++;
+            consoleTextDisplayed = false; // Weapon selected has been changed so, Console has displayed text
+        }
+        //*/
+
+
     }
     private void ClampXAxisRotationToValue(float value)
     {

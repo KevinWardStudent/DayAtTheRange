@@ -26,5 +26,9 @@ public class CasingSpinnerandSound : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         aud.PlayOneShot(casingCollides, 0.1F); // Play audio clip indcating casing has made contact with some object
+        if (other.tag == "Ground")
+        {
+            rb.isKinematic = true;
+        }
     }
 }
