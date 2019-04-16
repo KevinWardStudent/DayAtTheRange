@@ -41,7 +41,7 @@ public class RifleController : MonoBehaviour {
 
     // Ammo Counter
     int ammoCount; // Ammo currently in magazine
-    public Text ammoCountText; // Displays text to screen
+    //public Text ammoCountText; // Displays text to screen
     private bool hasAmmo; // Checks if there is ammo in the magazine
 
     // fireRates and nextFires of Single
@@ -60,13 +60,21 @@ public class RifleController : MonoBehaviour {
     private AudioSource aud; // Reference to AudioSource Component attached to Rifle
     public AudioClip gunShoot; // Audio Clip Assigned in Unity Editor, the rifle shot sound effect
 
+    TestPlayerMover player;
+
+
     // Use this for initialization
     void Start()
     {
+
+        //player = TestPlayerMover.instance;
+
+
+
         consoleTextDisplayed = false; // FireMode has not been changed so, Console has not displayed text
         indexFireMode = 1; // Fire Mode by default is single shot, there indexFireMode is 1
         ammoCount = 30; // ammo when gun is picked up
-        ammoCountText.text = ammoCount.ToString() + " / " + "Infinite"; // Display text of ammoCount
+        //ammoCountText.text = ammoCount.ToString() + " / " + "Infinite"; // Display text of ammoCount
         hasAmmo = true; // There are bullets in the magazaine so true
         aud = GetComponent<AudioSource>(); // Grabs reference to AudioSourceComponent attached to Rifle
 
@@ -86,13 +94,22 @@ public class RifleController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        ammoCountText.text = ammoCount.ToString() + " / " + "Infinite"; // Display text of ammoCount
+        if (player == null)
+        {
+            return;
+        }
+        else
+        {
+            player.AmmoTextUpdate(ammoCount.ToString() + " / " + "Infinite");
+        }
+        //ammoCountText.text = ammoCount.ToString() + " / " + "Infinite"; // Display text of ammoCount
         // Semi-Automatic
         if (Input.GetButtonDown("Fire1") && Time.time > nextFireSingle && indexFireMode == 1 && hasAmmo == true)
         {
             nextFireSingle = Time.time + fireRateSingle;
             //Instantiate(bullet, bulletShotSpawn.transform.position, bulletShotSpawn.transform.rotation); // Instantiate bullet at position and rotation of bulletShotSpawn
             //Instantiate(bullet, bulletShotSpawnGameObject.transform.position, bulletShotSpawnGameObject.transform.rotation); // Instantiate bullet at position and rotation of bulletShotSpawnGameObject
+            
             Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation); // -- Test code for shooting -- This is the only one that works because of Game Object Reference not working
             ammoCount--; // Iterate ammoCount by one down each shot
             aud.PlayOneShot(gunShoot, 0.1F); // Play sound effect for shooting
@@ -209,4 +226,15 @@ public class RifleController : MonoBehaviour {
     {
         return null;
     }
+
+    public void PickedUp()
+    {
+        player = GetComponentInParent<TestPlayerMover>();
+
+    }
+    public void PutDown()
+    {
+        player = null;
+    }
+
 }

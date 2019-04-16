@@ -1,9 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TestPlayerMover : MonoBehaviour
 {
+
+    /*
+     * 
+     * This is a Singleton. This code will give you a reference to this script anywhere in your scene
+     * as long as you don't have this script attached to more than one object.
+     * 
+     * Syntax for finding this class in other classes:
+     * TestPlayerMover player
+     * Start(){
+     *      player = TestPlayerMover.instance;
+     * }
+     * 
+     */
+    public static TestPlayerMover instance;
+    private void Awake()
+    {
+        instance = this;
+    }
 
     /*
      * This script's purpose is to simply move the Player Game Object on the X, Z plane, it was also intended to move the player in rotation
@@ -37,6 +56,8 @@ public class TestPlayerMover : MonoBehaviour
     public GameObject pistol; // Assigned in Unity Editor, grab reference to Pistol
     public GameObject grenade; // Assigned in Unity Editor, grab reference to Grenade
 
+    public Text ammoText;       //Text for ammo on UI.
+
 
     // Use this for initialization
     void Start()
@@ -60,13 +81,14 @@ public class TestPlayerMover : MonoBehaviour
         zAxisClamp = 0.0F;
 
         rb.isKinematic = false;
-        indexSwitchWeapon = 1; // Rifle is first weapon selected, this will only be included in earlier build, later index value will be needed for
+        indexSwitchWeapon = 0; // Rifle is first weapon selected, this will only be included in earlier build, later index value will be needed for
         consoleTextDisplayed = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         /*
         
         if (Input.GetAxis("Lean") > 0 && !(Input.GetAxis("Lean") < 0))
@@ -246,10 +268,10 @@ public class TestPlayerMover : MonoBehaviour
         }
         if (indexSwitchWeapon > 3 && consoleTextDisplayed == false)
         {
-            // Console Alert: Grenade Selected
+            // Console Alert: Weapon Selected Reset
             Debug.Log("Weapon Selected Reset");
             indexSwitchWeapon = 1;
-            consoleTextDisplayed = true; // Weapon selected has been changed so, Console has displayed text
+            consoleTextDisplayed = false; // Weapon selected has been changed so, Console has displayed text
         }
         if (Input.GetButtonDown("SwitchWeapon"))
         {
@@ -274,6 +296,13 @@ public class TestPlayerMover : MonoBehaviour
         eulerRotation.z = value;
         transform.eulerAngles = eulerRotation;
     }
+
+    public void AmmoTextUpdate(string text)
+    {
+        ammoText.text = text;
+
+    }
+
     /*
   Vector3 targetDirection = new Vector3(moveHorizontal, 0.0f, moveVertical);
    Camera.main.transform.TransformDirection(targetDirection);
