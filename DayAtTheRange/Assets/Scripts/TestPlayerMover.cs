@@ -17,13 +17,13 @@ public class TestPlayerMover : MonoBehaviour
      *      player = TestPlayerMover.instance;
      * }
      * 
-     */
+     *
     public static TestPlayerMover instance;
     private void Awake()
     {
         instance = this;
     }
-
+    */
     /*
      * This script's purpose is to simply move the Player Game Object on the X, Z plane, it was also intended to move the player in rotation
      * on the Z axis. This however was changed to be handled by other scripts which play animations to accomplish the same task. Nonetheless,
@@ -58,6 +58,19 @@ public class TestPlayerMover : MonoBehaviour
 
     public Text ammoText;       //Text for ammo on UI.
 
+    // Variables for Weapon Pick Up
+    private bool hasRifle; // Checks if player has the rifle object
+    private bool canPickUpRifle; // Checks if player can Pick Up Rifle
+
+    private bool hasPistol; // Checks if player has the pistol object
+    private bool canPickUpPistol; // Checks if player can Pick Up Pistol
+
+    private bool hasGrenade; // Checks if player has the grenade object
+    private bool canPickUpGrenade; // Checks if player can Pick Up Greande
+
+    GameObject weaponToDisable; // Game Object which stores reference to other.GameObject which will be destroyed when player presses 'F' and is colliding with the weapon pick up
+    public Text pickUpTextGoAway; // A little bug occcured because I coded the weapons, which display a text variable while being collided with, to be disabled with "picked up", this will fix it
+
 
     // Use this for initialization
     void Start()
@@ -82,8 +95,15 @@ public class TestPlayerMover : MonoBehaviour
 
         rb.isKinematic = false;
         indexSwitchWeapon = 0; // Rifle is first weapon selected, this will only be included in earlier build, later index value will be needed for
-        consoleTextDisplayed = false;
-    }
+        consoleTextDisplayed = false; // No console text needing to be displayed
+
+        hasRifle = false; // Player does not have the rifle object
+        canPickUpRifle = false; // Player cannot pick up rifle at start
+        hasPistol = false; // Player does not have the pistol object
+        canPickUpPistol = false; // Player cannot pick up pistol at start
+        hasGrenade = false; // Player does not have the grenade object
+        canPickUpGrenade = false; // Player cannot pick up grenade at start
+}
 
     // Update is called once per frame
     void Update()
@@ -123,8 +143,9 @@ public class TestPlayerMover : MonoBehaviour
         Vector3 movementInput = new Vector3(moveHorizontal, 0.0F, moveVertical);
         Vector3 movementInputXbox = new Vector3(moveHorizontalXbox, 0.0F, moveVerticalXbox);
         //rb.velocity = movementInput * movementSpeed; // Moves independently of rotation of object
-        rb.AddRelativeForce((movementInput) * movementSpeed); // Moves dependent of rotation of object---This works
-        rb.AddRelativeForce((movementInputXbox) * movementSpeed); // Xbox Version of above Code
+        rb.velocity = transform.TransformDirection(movementInput) * movementSpeed;
+        //--rb.AddRelativeForce((movementInput) * movementSpeed); // Moves dependent of rotation of object---This works
+        //--rb.AddRelativeForce((movementInputXbox) * movementSpeed); // Xbox Version of above Code
         //rb.MovePosition(rb.position + movementInput); // Really quickly moves player in direction of inputs, basically like velocity 
         //rb.MovePosition(movementInput); // Moves player in direction of input, when input released, resets back to starting point
 
@@ -190,7 +211,7 @@ public class TestPlayerMover : MonoBehaviour
         //playerHeadObject.transform.rotation.y = transform.Rotate(transform.up * lookHorizontal);
         //transform.Rotate(transform.up * lookVertical);
 
-        // Below Code keeps Player head tilt locked between 90 degree verticle
+        // Below Code keeps Player head tilt locked between 90 degree verticle (AXIS CLAMP AND LOOK)
         xAxisClamp += lookVertical;
         //zAxisClamp += lookLean; // This will move body, even if no rotate functions are called-----Check if this is enabled if still leaning without animation, check off if you want old lean
     
@@ -235,7 +256,7 @@ public class TestPlayerMover : MonoBehaviour
         //*
 
         // Weapon Switch
-        if (indexSwitchWeapon == 1 && consoleTextDisplayed == false)
+        if (indexSwitchWeapon == 1 && consoleTextDisplayed == false && hasRifle == true)
         {
             // Console Alert: Rifle Selected
             Debug.Log("Rifle Selected");
@@ -246,7 +267,7 @@ public class TestPlayerMover : MonoBehaviour
             consoleTextDisplayed = true; // Weapon selected has been changed so, Console has displayed text
         }
 
-        if (indexSwitchWeapon == 2 && consoleTextDisplayed == false)
+        if (indexSwitchWeapon == 2 && consoleTextDisplayed == false && hasPistol == true)
         {
             // Console Alert: Pistol Selected
             Debug.Log("Pistol Selected");
@@ -256,7 +277,7 @@ public class TestPlayerMover : MonoBehaviour
             grenade.SetActive(false);
             consoleTextDisplayed = true; // Weapon selected has been changed so, Console has displayed text
         }
-        if (indexSwitchWeapon == 3 && consoleTextDisplayed == false)
+        if (indexSwitchWeapon == 3 && consoleTextDisplayed == false && hasGrenade == true)
         {
             // Console Alert: Grenade Selected
             Debug.Log("Grenade Selected");
@@ -282,8 +303,63 @@ public class TestPlayerMover : MonoBehaviour
         }
         //*/
 
+        // Weapon Pick Ups
+        if (Input.GetButtonDown("Interact")) // This cannot be outside of Update
+        {
+            Debug.Log("Boop");
+        }
+
+        if (Input.GetButtonDown("Interact") && canPickUpRifle == true)
+        {
+            Debug.Log("Hey! I found a Rifle"); // Let Designer know if weapon is picked up
+            hasRifle = true; // Set control flag, so we can cycle to Rifle as true
+            indexSwitchWeapon = 1; // Set Weapon to Rifle index value
+            weaponToDisable.SetActive(false); // Disable Weapon Pick Up
+            pickUpTextGoAway.text = ""; // We're no longer colliding with weapon, so let's disable the text variable
+
+        }
+
+        if (Input.GetButtonDown("Interact") && canPickUpPistol == true)
+        {
+            Debug.Log("Hey! I found a Pistol"); // Let Designer know if weapon is picked up
+            hasPistol = true; // Set control flag, so we can cycle to Pistol as true
+            indexSwitchWeapon = 2; // Set Weapon to Pistol index value
+            weaponToDisable.SetActive(false); // Disable Weapon Pick Up
+            pickUpTextGoAway.text = ""; // We're no longer colliding with weapon, so let's disable the text variable
+        }
+        if (Input.GetButtonDown("Interact") && canPickUpGrenade == true)
+        {
+            Debug.Log("Hey! I found a Grenade"); // Let Designer know if weapon is picked up
+            hasGrenade = true; // Set control flag, so we can cycle to Grenade as true
+            indexSwitchWeapon = 3; // Set Weapon to Grenade index value
+            weaponToDisable.SetActive(false); // Disable Weapon Pick Up
+            pickUpTextGoAway.text = ""; // We're no longer colliding with weapon, so let's disable the text variable
+        }
+    }
+
+    // These Collisions are to check when the player enters the collider of the different weapons
+    private void OnTriggerEnter(Collider other)
+    {
+        
+        if (other.tag == "RiflePickUp")
+        {
+            canPickUpRifle = true; // Player can now pick up Rifle
+            weaponToDisable = other.gameObject; // Set other.GameObject(Rifle) as weapon to be disabled
+        }
+        if (other.tag == "PistolPickUp")
+        {
+            canPickUpPistol = true;
+            weaponToDisable = other.gameObject; // Set other.GameObject(Pistol) as weapon to be disabled
+        }
+        if (other.tag == "GrenadePickUp")
+        {
+            canPickUpGrenade = true;
+            weaponToDisable = other.gameObject; // Set other.GameObject(Grenade) as weapon to be disabled
+        }
 
     }
+
+    // Below methods are related to Axis Clamping and set to the value fed in when the methods are called above
     private void ClampXAxisRotationToValue(float value)
     {
         Vector3 eulerRotation = playerHeadObject.transform.eulerAngles;
