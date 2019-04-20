@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4611,6 +4611,46 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000061035156, y: -79.999985}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &263613706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 263613707}
+  - component: {fileID: 263613708}
+  m_Layer: 0
+  m_Name: PistolPrototypeEmptyMagSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &263613707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 263613706}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.145, y: 0.039, z: 0}
+  m_LocalScale: {x: 1.0000005, y: 1, z: 1.0000005}
+  m_Children: []
+  m_Father: {fileID: 886715465}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &263613708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 263613706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25bc0f15a84d2f24c9afaefc60f13e70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &263902045
 GameObject:
   m_ObjectHideFlags: 0
@@ -10957,7 +10997,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 652110295}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.254, y: 0.257, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 886715465}
@@ -14494,6 +14534,46 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 837415469}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &840514815
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 840514816}
+  - component: {fileID: 840514817}
+  m_Layer: 0
+  m_Name: PistolPrototypeFullMagSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &840514816
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 840514815}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.146, y: 0.032, z: 0}
+  m_LocalScale: {x: 1.0000005, y: 1, z: 1.0000005}
+  m_Children: []
+  m_Father: {fileID: 886715465}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &840514817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 840514815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25bc0f15a84d2f24c9afaefc60f13e70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &853433577
 GameObject:
   m_ObjectHideFlags: 0
@@ -14823,13 +14903,14 @@ GameObject:
   - component: {fileID: 886715465}
   - component: {fileID: 886715466}
   - component: {fileID: 886715467}
+  - component: {fileID: 886715468}
   m_Layer: 0
   m_Name: Pistol Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &886715465
 Transform:
   m_ObjectHideFlags: 0
@@ -14842,6 +14923,9 @@ Transform:
   m_Children:
   - {fileID: 1538194981}
   - {fileID: 652110296}
+  - {fileID: 1856513754}
+  - {fileID: 263613707}
+  - {fileID: 840514816}
   m_Father: {fileID: 853433578}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14874,6 +14958,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e7f4e57da9cf7748964329e150e69a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &886715468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 886715464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5990506629811449827dd300fde9b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 1113505206584884, guid: 22ce012813594bb4aba94d9d786880b2, type: 2}
+  bulletSpawn: {fileID: 652110296}
+  casing: {fileID: 1003889829554084, guid: 40886115d08409a4b9b0c893e5350bfb, type: 2}
+  casingSpawn: {fileID: 1856513754}
+  magFull: {fileID: 1765822164974938, guid: 1cac4cb1b10e89046aef557159421bc3, type: 2}
+  magFullSpawn: {fileID: 840514816}
+  magEmpty: {fileID: 1511005016614132, guid: e2da2bd1f2358834aab9ea48d5058304, type: 2}
+  magEmptySpawn: {fileID: 263613707}
+  ammoCountText: {fileID: 353837882}
+  fireRateSingle: 0.9
+  fireRateBurst: 0
+  fireRateAutomatic: 0.1
+  gunShoot: {fileID: 8300000, guid: 059d0d5e598d16742b2bcb85044e38fc, type: 3}
 --- !u!1 &889158617
 GameObject:
   m_ObjectHideFlags: 0
@@ -32931,6 +33039,46 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1842389832}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1856513753
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1856513754}
+  - component: {fileID: 1856513755}
+  m_Layer: 0
+  m_Name: PistolPrototypeCasingSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1856513754
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1856513753}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.005, y: 0.25699985, z: 0.055}
+  m_LocalScale: {x: 1.0000005, y: 1, z: 1.0000005}
+  m_Children: []
+  m_Father: {fileID: 886715465}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1856513755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1856513753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25bc0f15a84d2f24c9afaefc60f13e70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1857380037
 GameObject:
   m_ObjectHideFlags: 0
