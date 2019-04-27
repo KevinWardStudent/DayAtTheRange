@@ -101,7 +101,7 @@ public class PistolController : MonoBehaviour {
         }
 
         // Automatic
-        if (Input.GetButton("Fire1") && Time.time > nextFireAutomatic && indexFireMode == 3 && hasAmmo == true)
+        if (Input.GetButton("Fire1") && Time.time > nextFireAutomatic && indexFireMode == 2 && hasAmmo == true)
         {
             nextFireAutomatic = Time.time + fireRateAutomatic;
             Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation); // -- Test code for shooting -- This is the only one that works because of Game Object Reference not working
@@ -128,7 +128,7 @@ public class PistolController : MonoBehaviour {
             //aud.PlayOneShot(FireModeSoundEffect);
             consoleTextDisplayed = true; // FireMode has been changed so, Console has displayed text
         }
-
+        /*
         if (indexFireMode == 2 && consoleTextDisplayed == false)
         {
             // Console Alert: FireMode set to burst
@@ -137,8 +137,9 @@ public class PistolController : MonoBehaviour {
             //aud.PlayOneShot(FireModeSoundEffect);
             consoleTextDisplayed = true; // FireMode has been changed so, Console has displayed text
         }
+        */
 
-        if (indexFireMode == 3 && consoleTextDisplayed == false)
+        if (indexFireMode == 2 && consoleTextDisplayed == false)
         {
             // Console Alert: FireMode set to automatic
             Debug.Log("Automatic");
@@ -147,7 +148,7 @@ public class PistolController : MonoBehaviour {
             consoleTextDisplayed = true; // FireMode has been changed so, Console has displayed text
         }
 
-        if (indexFireMode > 3 && consoleTextDisplayed == false)
+        if (indexFireMode > 2 && consoleTextDisplayed == false)
         {
             // Console Alert: FireMode Reset
             Debug.Log("Switch FireMode Reset");
