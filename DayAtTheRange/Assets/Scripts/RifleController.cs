@@ -121,6 +121,8 @@ public class RifleController : MonoBehaviour {
         // Burst
         if (Input.GetButtonDown("Fire1") && Time.time > nextFireBurst && indexFireMode == 2 && hasAmmo == true)
         {
+            StartCoroutine(BurstFire());
+            /*
             nextFireBurst = Time.time + fireRateBurst;
             Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation); // -- Test code for shooting -- This is the only one that works because of Game Object Reference not working
             aud.PlayOneShot(gunShoot, 0.1F); // Play sound effect for shooting
@@ -133,6 +135,7 @@ public class RifleController : MonoBehaviour {
             Instantiate(casing, casingSpawn.position, casingSpawn.rotation); // -- Test code for ejecting casings -- This is the only one that works because of Game Object Reference not working
             ammoCount -= 3; // Iterate ammoCount by three because you burst fired
             Debug.Log("Burst Shot Fired");
+            */
         }
 
         // Automatic
@@ -225,7 +228,16 @@ public class RifleController : MonoBehaviour {
     // Below Coroutine used to simulate burst fire
     IEnumerator BurstFire()
     {
-        return null;
+        for (int i = 0; i < 3; i++)
+        {
+            nextFireBurst = Time.time + fireRateBurst;
+            Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation); // -- Test code for shooting -- This is the only one that works because of Game Object Reference not working
+            ammoCount--; // Iterate ammoCount by one down each shot
+            aud.PlayOneShot(gunShoot, 0.1F); // Play sound effect for shooting
+            Instantiate(casing, casingSpawn.position, casingSpawn.rotation); // -- Test code for ejecting casings -- This is the only one that works because of Game Object Reference not working
+            Debug.Log("Burst Shot Fired");
+            yield return new WaitForSeconds(0.1F);
+        }
     }
 
     /*
