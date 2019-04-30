@@ -86,6 +86,7 @@ public class TestPlayerMover : MonoBehaviour
         anim = GetComponent<Animator>(); // Grabs reference to Player's Animator component
         rb = GetComponent<Rigidbody>(); // Grabs reference to Player's Rigidbody component
         Cursor.lockState = CursorLockMode.Locked; // Locks mouse to center of screen
+        Cursor.visible = false; // Hides the Mouse Cursor while the game is playing
 
         /*
         GameObject playerHeadObject = GameObject.FindWithTag("PlayerHead");
