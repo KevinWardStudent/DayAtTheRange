@@ -685,9 +685,10 @@ MonoBehaviour:
   magEmptySpawn: {fileID: 4652519955599180}
   ammoCountText: {fileID: 0}
   fireRateSingle: 0.25
-  fireRateBurst: 0
+  fireRateBurst: 0.6
   fireRateAutomatic: 0.3
   gunShoot: {fileID: 8300000, guid: 21fea2c23d16554438e0c1dc5580dfea, type: 3}
+  gunEquipReload: {fileID: 8300000, guid: e2f6f3898ca23054da2c4109edfd7e3f, type: 3}
 --- !u!114 &114492616019480578
 MonoBehaviour:
   m_ObjectHideFlags: 1

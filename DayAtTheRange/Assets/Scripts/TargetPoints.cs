@@ -29,12 +29,19 @@ public class TargetPoints : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Bullet" && beenShot == false)
+        if ((other.tag == "Bullet" && beenShot == false) || (other.tag == "Fragment" && beenShot == false))
         {
             gameController.AddPoints(1); // Add a Point
             beenShot = true; // Target has been shot
 
         }
 
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Fragment")
+        {
+            Debug.Log("Eureka!");
+        }
     }
 }

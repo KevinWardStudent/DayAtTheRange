@@ -9,6 +9,9 @@ public class GrenadeExploder : MonoBehaviour {
     private float countdown; // private float variable to decriment until the grenade needs to explode
     private bool consoleTextDisplayed; // Control Flag to check if Grenade explodes and stop our text from filling up the console
 
+    // Fragments
+    public GameObject fragment; // Fragment to hit 
+
     // Particle Effects
     public GameObject explosionEffect; // public GameObject that references our particle which we want to have show when the grenade blows up
     public GameObject dirtKickUp1; // public GameObject that references our dirt particle which we want to show when the grenade blows up
@@ -42,6 +45,7 @@ public class GrenadeExploder : MonoBehaviour {
     {
         Debug.Log("I've worked up a big grunty thirst!!"); // YapYap King of Grunts orders so!
         aud.PlayOneShot(soundEffectExplode, 1.0F); // Play explosion sound effect
+        Instantiate(fragment, transform.position, transform.rotation);// Spawn Fragments to hit targets
         Instantiate(explosionEffect, transform.position, transform.rotation); // Show our particle effect at the location of this grenade's position and rotation
         Instantiate(dirtKickUp1, transform.position, transform.rotation); // Show the dirt kick up of the grenade
         Instantiate(dirtKickUp2, transform.position, transform.rotation); // Dirt Kick Up 2

@@ -384,6 +384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fuze: 3
+  fragment: {fileID: 1058700903107994, guid: 92167db56f9ca934880bae6df253b80a, type: 2}
   explosionEffect: {fileID: 1381971747463654, guid: 22dfc4f6b661dd94fa9b7153d9ceb342,
     type: 2}
   dirtKickUp1: {fileID: 1912212547458660, guid: a9c88a227658d694b8794028940f2eeb,

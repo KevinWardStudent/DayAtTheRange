@@ -9,18 +9,23 @@ public class GameController : MonoBehaviour {
     // Points Related Variables
     private int currentPoints; // Int variable used to hold the number of points at the given moment
     public Text pointsText;
+    public Text victoryText;
 
 	// Use this for initialization
 	void Start ()
     {
         currentPoints = 0; // At the start of the game, no targets are shot, thus points is 0
         UpdatePoints(); // Call points to be displayed
+        victoryText.text = ""; // Victory Not achieved, no text to display 
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-		
+        if (currentPoints >= 20)
+        {
+            victoryText.text = "All Targets down. Time to leave. (You Win!)";
+        }
 	}
 
     // Used by other scripts, like the target scripts, to add points to the locally stored value of current points
@@ -33,6 +38,6 @@ public class GameController : MonoBehaviour {
 
     void UpdatePoints()
     {
-        pointsText.text = "Points: " + currentPoints.ToString();
+        pointsText.text = "Points: " + currentPoints.ToString() + "/ 20";
     }
 }

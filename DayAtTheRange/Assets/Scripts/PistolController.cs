@@ -52,8 +52,9 @@ public class PistolController : MonoBehaviour {
     private float nextFireAutomatic;
 
     // Sounds Effects
-    private AudioSource aud; // Reference to AudioSource Component attached to Rifle
-    public AudioClip gunShoot; // Audio Clip Assigned in Unity Editor, the rifle shot sound effect
+    private AudioSource aud; // Reference to AudioSource Component attached to Pistol
+    public AudioClip gunShoot; // Audio Clip Assigned in Unity Editor, the pistol shot sound effect
+    public AudioClip gunEquipReload; // Audio Clip Assigned in Unity Editor, the pistol equip and reload sound effect
 
 
     // Use this for initialization
@@ -170,6 +171,7 @@ public class PistolController : MonoBehaviour {
         // Ammo Management and Reload
         if (Input.GetButtonDown("Reload"))
         {
+            aud.PlayOneShot(gunEquipReload, 1.0F); // Play Reload Sound Effect
             ammoCount = 15;
             hasAmmo = true;
             if (ammoCount <= 0)

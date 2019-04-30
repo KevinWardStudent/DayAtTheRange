@@ -34,6 +34,8 @@ public class TestPlayerMover : MonoBehaviour
      */
 
     // Declare Variables
+
+     // Animations and Move variables
     private Animator anim; // Reference to Animator component
     private Rigidbody rb; // References to Rigidbody Component
     public float movementSpeed; // Assigned in Unity Editor, Speed at which player moves
@@ -72,6 +74,12 @@ public class TestPlayerMover : MonoBehaviour
     public Text pickUpTextGoAway; // A little bug occcured because I coded the weapons, which display a text variable while being collided with, to be disabled with "picked up", this will fix it
 
 
+    // Equip Weapons Audio
+    private AudioSource aud; // audio Source component
+    public AudioClip rifleEquipSound; // Rifle Equip Sound Effect
+    public AudioClip pistolEquipSound; // Pistol Equip Sound Effect
+    public AudioClip grenadeEquipSound; // Grenade Equip Sound Effect
+
     // Use this for initialization
     void Start()
     {
@@ -103,6 +111,8 @@ public class TestPlayerMover : MonoBehaviour
         canPickUpPistol = false; // Player cannot pick up pistol at start
         hasGrenade = false; // Player does not have the grenade object
         canPickUpGrenade = false; // Player cannot pick up grenade at start
+
+        aud = GetComponent<AudioSource>(); // Get Audio Source Component
 }
 
     // Update is called once per frame
@@ -303,6 +313,16 @@ public class TestPlayerMover : MonoBehaviour
         }
         //*/
 
+
+
+        /*
+         * Hey if you put the sound effect in an if statment, checking if the gun has picked up. Then you play the sound effect.
+         */
+
+
+
+
+
         // Weapon Pick Ups
         if (Input.GetButtonDown("Interact")) // This cannot be outside of Update
         {
@@ -312,6 +332,7 @@ public class TestPlayerMover : MonoBehaviour
         if (Input.GetButtonDown("Interact") && canPickUpRifle == true)
         {
             Debug.Log("Hey! I found a Rifle"); // Let Designer know if weapon is picked up
+            aud.PlayOneShot(rifleEquipSound,1.0F); // Play Rifle Equip Sound
             hasRifle = true; // Set control flag, so we can cycle to Rifle as true
             indexSwitchWeapon = 1; // Set Weapon to Rifle index value
             weaponToDisable.SetActive(false); // Disable Weapon Pick Up
@@ -322,6 +343,7 @@ public class TestPlayerMover : MonoBehaviour
         if (Input.GetButtonDown("Interact") && canPickUpPistol == true)
         {
             Debug.Log("Hey! I found a Pistol"); // Let Designer know if weapon is picked up
+            aud.PlayOneShot(pistolEquipSound, 1.0F); // Play Pistol Equip Sound
             hasPistol = true; // Set control flag, so we can cycle to Pistol as true
             indexSwitchWeapon = 2; // Set Weapon to Pistol index value
             weaponToDisable.SetActive(false); // Disable Weapon Pick Up
@@ -330,6 +352,7 @@ public class TestPlayerMover : MonoBehaviour
         if (Input.GetButtonDown("Interact") && canPickUpGrenade == true)
         {
             Debug.Log("Hey! I found a Grenade"); // Let Designer know if weapon is picked up
+            aud.PlayOneShot(grenadeEquipSound, 1.0F); // Play Grenade Equip Sound
             hasGrenade = true; // Set control flag, so we can cycle to Grenade as true
             indexSwitchWeapon = 3; // Set Weapon to Grenade index value
             weaponToDisable.SetActive(false); // Disable Weapon Pick Up

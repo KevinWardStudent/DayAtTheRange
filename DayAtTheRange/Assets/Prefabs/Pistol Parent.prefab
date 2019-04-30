@@ -449,6 +449,7 @@ MonoBehaviour:
   fireRateSingle: 0.9
   fireRateAutomatic: 0.1
   gunShoot: {fileID: 8300000, guid: 059d0d5e598d16742b2bcb85044e38fc, type: 3}
+  gunEquipReload: {fileID: 8300000, guid: 378b3721216a11040a8d4d54c3b7fad1, type: 3}
 --- !u!114 &114746676841049434
 MonoBehaviour:
   m_ObjectHideFlags: 1

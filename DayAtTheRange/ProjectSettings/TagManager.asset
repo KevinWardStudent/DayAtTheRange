@@ -9,6 +9,7 @@ TagManager:
   - RiflePickUp
   - PistolPickUp
   - GrenadePickUp
+  - Fragment
   layers:
   - Default
   - TransparentFX
