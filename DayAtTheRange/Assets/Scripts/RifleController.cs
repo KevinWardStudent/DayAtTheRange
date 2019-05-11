@@ -124,6 +124,7 @@ public class RifleController : MonoBehaviour {
         {
             StartCoroutine(BurstFire());
             /*
+             * This code block contains the old method of three round burst fire. Now we do it with a code routine.
             nextFireBurst = Time.time + fireRateBurst;
             Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation); // -- Test code for shooting -- This is the only one that works because of Game Object Reference not working
             aud.PlayOneShot(gunShoot, 0.1F); // Play sound effect for shooting
