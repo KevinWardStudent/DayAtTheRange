@@ -330,7 +330,7 @@ public class TestPlayerMover : MonoBehaviour
             Debug.Log("Boop");
         }
 
-        if (Input.GetButtonDown("Interact") && canPickUpRifle == true)
+        if (Input.GetButtonDown("Interact") && canPickUpRifle == true && hasRifle == false)
         {
             Debug.Log("Hey! I found a Rifle"); // Let Designer know if weapon is picked up
             aud.PlayOneShot(rifleEquipSound,1.0F); // Play Rifle Equip Sound
@@ -341,7 +341,7 @@ public class TestPlayerMover : MonoBehaviour
 
         }
 
-        if (Input.GetButtonDown("Interact") && canPickUpPistol == true)
+        if (Input.GetButtonDown("Interact") && canPickUpPistol == true && hasPistol == false)
         {
             Debug.Log("Hey! I found a Pistol"); // Let Designer know if weapon is picked up
             aud.PlayOneShot(pistolEquipSound, 1.0F); // Play Pistol Equip Sound
@@ -350,7 +350,7 @@ public class TestPlayerMover : MonoBehaviour
             weaponToDisable.SetActive(false); // Disable Weapon Pick Up
             pickUpTextGoAway.text = ""; // We're no longer colliding with weapon, so let's disable the text variable
         }
-        if (Input.GetButtonDown("Interact") && canPickUpGrenade == true)
+        if (Input.GetButtonDown("Interact") && canPickUpGrenade == true && hasGrenade == false)
         {
             Debug.Log("Hey! I found a Grenade"); // Let Designer know if weapon is picked up
             aud.PlayOneShot(grenadeEquipSound, 1.0F); // Play Grenade Equip Sound
@@ -362,7 +362,7 @@ public class TestPlayerMover : MonoBehaviour
     }
 
     // These Collisions are to check when the player enters the collider of the different weapons
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         
         if (other.tag == "RiflePickUp")
@@ -381,6 +381,21 @@ public class TestPlayerMover : MonoBehaviour
             weaponToDisable = other.gameObject; // Set other.GameObject(Grenade) as weapon to be disabled
         }
 
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "RiflePickUp")
+        {
+            canPickUpRifle = false;
+        }
+        if (other.tag == "PistolPickUp")
+        {
+            canPickUpPistol = false;
+        }
+        if (other.tag == "GrenadePickUp")
+        {
+            canPickUpGrenade = false;
+        }
     }
 
     // Below methods are related to Axis Clamping and set to the value fed in when the methods are called above

@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Range.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Controls.unity
+    guid: 659007ef7f34da14b8daec071cee05ab
   m_configObjects: {}

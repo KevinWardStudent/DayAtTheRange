@@ -224,8 +224,8 @@ public class PistolRayCastController : MonoBehaviour {
     {
         // Comment out laserline if you want to make laser invisible
         aud.PlayOneShot(gunShoot, 0.1F); // Play sound effect for shooting
-        laserLine.enabled = true; // Enable our laserLine to display on screen
+        //laserLine.enabled = true; // Enable our laserLine to display on screen
         yield return shotDuration; // Make the CoRoutine wait shotDuration to turn our laserLine back off
-        laserLine.enabled = false; // Disable our laserLine to display on screen
+        //laserLine.enabled = false; // Disable our laserLine to display on screen
     }
 }

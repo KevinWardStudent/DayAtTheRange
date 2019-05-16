@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -25,6 +26,7 @@ public class GameController : MonoBehaviour {
         if (currentPoints >= 20)
         {
             victoryText.text = "All Targets down. Time to leave. (You Win!)";
+            StartCoroutine(Leave());
         }
 	}
 
@@ -39,5 +41,10 @@ public class GameController : MonoBehaviour {
     void UpdatePoints()
     {
         pointsText.text = "Points: " + currentPoints.ToString() + "/ 20";
+    }
+    IEnumerator Leave()
+    {
+        yield return new WaitForSeconds(5.0f);
+        SceneManager.LoadScene("MainMenu");
     }
 }

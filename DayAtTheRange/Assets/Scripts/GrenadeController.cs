@@ -19,6 +19,8 @@ public class GrenadeController : MonoBehaviour {
     public AudioClip pinPull; // Reference to Pin Pull Sound Effect When Button is held down
     public AudioClip handleRelease; // Reference to Handle Sound Effect When Button is released
 
+    float nextFire;
+    float fireRate = 1.2F;
 	// Use this for initialization
 	void Start ()
     {
@@ -37,12 +39,14 @@ public class GrenadeController : MonoBehaviour {
             Debug.Log("Pin is pulled.");
             //throwPower++;
         }
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
         {
+            nextFire = Time.time + fireRate;
             aud.PlayOneShot(pinPull, 1.0F); // Play Pin Pull Sounnd Effect
         }
-        if (Input.GetButtonUp("Fire1"))
+        if (Input.GetButtonUp("Fire1") && Time.time > nextFire)
         {
+            nextFire = Time.time + fireRate;
             aud.PlayOneShot(handleRelease, 1.0F); // Play Handle Release Sound Effect
             ThrowGrenade();
         }
@@ -60,7 +64,7 @@ public class GrenadeController : MonoBehaviour {
         {
             // Console Alert: FireMode set to burst
             Debug.Log("Throw Close");
-            throwPower = 20.0F; // Set throwPower to Throw Close Value
+            throwPower = 15.0F; // Set throwPower to Throw Close Value
             // Play FireMode Switch Sound Effect
             //aud.PlayOneShot(FireModeSoundEffect);
             consoleTextDisplayed = true; // FireMode has been changed so, Console has displayed text
@@ -70,7 +74,7 @@ public class GrenadeController : MonoBehaviour {
         {
             // Console Alert: FireMode set to automatic
             Debug.Log("Throw Far");
-            throwPower = 30.0F; // Set throwPower to Throw Far Value
+            throwPower = 25.0F; // Set throwPower to Throw Far Value
             // Play FireMode Switch Sound Effect
             //aud.PlayOneShot(FireModeSoundEffect);
             consoleTextDisplayed = true; // FireMode has been changed so, Console has displayed text
